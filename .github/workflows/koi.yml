@@ -1,0 +1,35 @@
+name: Generate Git-Koi GIF
+
+on:
+  # Runs once every 24 hours at midnight UTC
+  schedule:
+    - cron: '0 0 * * *'
+  # Allows manual runs from the Actions tab
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate git-koi GIF
+        uses: yalongwastaken/git-koi@main
+        with:
+          username: ${{ github.repository_owner }}
+          output: koi.gif
+
+      - name: Commit and push GIF
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add koi.gif
+          git commit -m "Update git-koi animation" || echo "No changes to commit"
+          git push
