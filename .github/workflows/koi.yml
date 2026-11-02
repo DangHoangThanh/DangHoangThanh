@@ -18,6 +18,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Setup FFmpeg
+        uses: AnimMouse/setup-ffmpeg@v1
+
       - name: Generate git-koi GIF
         uses: yalongwastaken/git-koi@main
         with:
