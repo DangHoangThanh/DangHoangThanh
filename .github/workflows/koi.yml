@@ -34,8 +34,10 @@ jobs:
             -ignore_loop 1 -i assets/koi/koi.gif \
             -filter_complex "\
               [0:v]crop=iw:ih*0.4:0:0[cropped_bg]; \
-              [1:v]scale=-1:ih*0.5:flags=neighbor[small_koi]; \
-              [cropped_bg][small_koi]overlay=(W-w)/2:(H-h)/2:shortest=1,split[s0][s1]; \
+              [1:v]scale=-1:ih*0.48:flags=neighbor,split=2[koi1][koi2_raw]; \
+              [koi2_raw]vflip,hflip[koi2]; \
+              [cropped_bg][koi1]overlay=(W*0.3)-(w/2):(H-h)/2[bg_one]; \
+              [bg_one][koi2]overlay=(W*0.7)-(w/2):(H-h)/2:shortest=1,split[s0][s1]; \
               [s0]palettegen[p]; \
               [s1][p]paletteuse" \
             assets/banner_koi.gif
