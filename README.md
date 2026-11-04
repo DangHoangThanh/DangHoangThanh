@@ -1,6 +1,5 @@
-<p align="center">
-  <img src="./assets/banner_koi.gif" alt="Pixel Art Banner with Koi" width="100%" />
-</p>
+<img src="./assets/banner_koi.gif" alt="Pixel Art Banner with Koi" width="100%" />
+
 <!--
 **DangHoangThanh/DangHoangThanh** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
