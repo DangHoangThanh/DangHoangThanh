@@ -30,12 +30,14 @@ jobs:
       - name: Overlay Koi onto Banner
         run: |
           ffmpeg -y \
-            -stream_loop -1 -i assets/banner.gif \
-            -stream_loop -1 -i assets/koi/koi.gif \
+            -ignore_loop 0 -i assets/banner.gif \
+            -ignore_loop 1 -i assets/koi/koi.gif \
             -filter_complex "\
               [0:v]crop=iw:ih*0.6:0:0[cropped_bg]; \
-              [cropped_bg][1:v]overlay=(W-w)/2:(H-h)/2:shortest=1" \
-            -t 4 assets/banner_koi.gif
+              [cropped_bg][1:v]overlay=(W-w)/2:(H-h)/2:shortest=1,split[s0][s1]; \
+              [s0]palettegen[p]; \
+              [s1][p]paletteuse" \
+            assets/banner_koi.gif
 
       - name: Commit and push GIF
         run: |
